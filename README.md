@@ -1,7 +1,25 @@
 "# vttp5_day11ws_trial" 
 
+mvn spring-boot:run -Dspring-boot.run.arguments="--server.port=3000" 
+mvn spring-boot:run -Dserver.port=3000 // will use 3000 if nothing is set in application.properties, if application.properties is set at 5000, it will use 5000.
+
+Precedence of Port Settings
+Spring Boot decides which port to use based on the following priority order:
+
+Command-line argument: --server.port=5000       // will override any setting in applications.properties, need  DefaultApplicationArguments cliArgs
+Environment variable: PORT=8081                 // to set: set PORT=8081, to unset: set PORT=
+Java system property: -Dserver.port=3600
+Default property in app.setDefaultProperties: This is what app.setDefaultProperties(Collections.singletonMap("server.port", port)) does.
+application.properties: If no other source specifies server.port, Spring Boot uses the value in application.properties.
+Spring Boot default: 8080, if nothing else is specified.
+
+
+
 http://localhost:8080                   Landing page
 http://localhost:8080/nonexistentpage   Error page
+
+
+
 
 SpringApplication app = new SpringApplication(Day11wsTrialApplication.class);
 Purpose:
